@@ -46,7 +46,7 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "Update_Product",
 			"request": {
 				"method": "GET",
 				"header": []
