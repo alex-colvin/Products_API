@@ -6,13 +6,21 @@ from .serializers import ReviewSerializer
 from .models import Review
 from products.models import Product
 
-@api_view(['GET',])
+@api_view(['GET','POST'])
 def reviews_list(request):
     
     if request.method == 'GET':
         reviews = Review.objects.all()
         serializer = ReviewSerializer(reviews, many=True)
         return Response(serializer.data, status=200)
+
+    elif request.method == 'POST':
+        serializer = ReviewSerializer(data=request.data)
+        if serializer.is_valid() == True:
+            serializer.save()
+            return Response(serializer.data, status=201)
+        else:
+            return Response(serializer.errors, status=400)
 
 @api_view(['GET','POST','PUT','DELETE'])
 def review_detail(request,pk):
